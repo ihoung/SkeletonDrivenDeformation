@@ -52,13 +52,15 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/src/Camera.cpp
 			${PROJECT_SOURCE_DIR}/src/Force.cpp
 			${PROJECT_SOURCE_DIR}/src/Simulator.cpp
+			${PROJECT_SOURCE_DIR}/src/Mesh.cpp
 			${PROJECT_SOURCE_DIR}/include/NGLScene.h
 			${PROJECT_SOURCE_DIR}/include/MainWindow.h
 			${PROJECT_SOURCE_DIR}/include/Particle.hpp
 			${PROJECT_SOURCE_DIR}/include/HairStrand.h 
 			${PROJECT_SOURCE_DIR}/include/Camera.h 
 			${PROJECT_SOURCE_DIR}/include/Force.h 			
-			${PROJECT_SOURCE_DIR}/include/Simulator.h 	)
+			${PROJECT_SOURCE_DIR}/include/Simulator.h
+			${PROJECT_SOURCE_DIR}/include/Mesh.h)
 
 if ( Qt6_FOUND )
 	target_link_libraries(${TargetName} PRIVATE  NGL Qt::Widgets Qt::OpenGL Qt::OpenGLWidgets)
@@ -72,6 +74,12 @@ add_custom_target(${TargetName}CopyShaders ALL
    $<TARGET_FILE_DIR:${TargetName}>/shaders
 )
 
+add_custom_target(${TargetName}CopyAssets ALL
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+	${CMAKE_CURRENT_SOURCE_DIR}/resources
+	$<TARGET_FILE_DIR:${TargetName}>/resources
+)
+
 #################################################################################
 # Testing code
 #################################################################################
@@ -83,11 +91,14 @@ target_sources(SkeletonDrivenDeformationTests PRIVATE ${PROJECT_SOURCE_DIR}/test
 											${PROJECT_SOURCE_DIR}/tests/HairTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/CameraTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/ForceTest.cpp
+											${PROJECT_SOURCE_DIR}/tests/MeshTest.cpp
 											${PROJECT_SOURCE_DIR}/src/HairStrand.cpp
 											${PROJECT_SOURCE_DIR}/src/Force.cpp
+											${PROJECT_SOURCE_DIR}/src/Mesh.cpp
 											${PROJECT_SOURCE_DIR}/include/Particle.hpp
 											${PROJECT_SOURCE_DIR}/include/HairStrand.h 
 											${PROJECT_SOURCE_DIR}/include/Camera.h
-											${PROJECT_SOURCE_DIR}/include/Force.h 			)
+											${PROJECT_SOURCE_DIR}/include/Force.h 			 
+											${PROJECT_SOURCE_DIR}/include/Mesh.h)
 target_link_libraries(SkeletonDrivenDeformationTests PRIVATE GTest::gtest GTest::gtest_main)
 gtest_discover_tests(SkeletonDrivenDeformationTests)

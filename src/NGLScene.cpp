@@ -26,7 +26,9 @@ void NGLScene::resizeGL(int _w , int _h)
   m_win.height = static_cast<int>( _h * devicePixelRatio() );
 }
 
-const auto HairShader ="HairShader";
+const std::string DEFAULT_MESH_FILE = "resources/cylinder.obj";
+
+const auto MeshShader ="MeshShader";
 
 void NGLScene::initializeGL()
 {
@@ -42,27 +44,27 @@ void NGLScene::initializeGL()
   // initialize main camera
   m_mainCamera = std::make_unique<Camera>(CAMERA_EYE, CAMERA_CENTER, CAMERA_UP);
 
-  ngl::ShaderLib::loadShader(HairShader, "shaders/HairVertex.glsl", "shaders/HairFragment.glsl");
-  ngl::ShaderLib::use(HairShader);
+  ngl::ShaderLib::loadShader(MeshShader, "shaders/MeshVertex.glsl", "shaders/MeshFragment.glsl");
   startTimer(10);
 
   m_strand = std::make_shared<HairStrand>(10, 5.0f);
   m_simulator = std::make_unique<Simulator>(m_strand);
-}
 
+  m_mesh = std::make_unique<Mesh>(DEFAULT_MESH_FILE);
+}
 
 
 void NGLScene::paintGL()
 {
-  if (m_isSimulationOn)
-    m_simulator->update();
+  //if (m_isSimulationOn)
+  //  m_simulator->update();
 
   // clear the screen and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
-  m_strand->render(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat());
-  
+  //m_strand->render(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat());
+  m_mesh->drawSolid(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "HairStrand.h"
 #include "Simulator.h"
+#include "Mesh.h"
 
 class NGLScene : public QOpenGLWidget
 {
@@ -110,6 +111,8 @@ private:
 
     std::shared_ptr<HairStrand> m_strand;
     std::unique_ptr<Simulator> m_simulator;
+
+    std::unique_ptr<Mesh> m_mesh;
 
     bool m_isSimulationOn = false;
 
