@@ -17,13 +17,13 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
 
     if (m_win.camera_mode)
     {
-      m_mainCamera->rotCamera({ -0.1f * diffx, -0.1f * diffy });
+      m_mainCamera->rotCamera({ 0.1f * diffx, 0.1f * diffy });
     }
-    else
-    {
-      m_win.spinXFace += static_cast<int>(0.5f * diffy);
-      m_win.spinYFace += static_cast<int>(0.5f * diffx);
-    }
+    //else
+    //{
+    //  m_win.spinXFace += static_cast<int>(0.5f * diffy);
+    //  m_win.spinYFace += static_cast<int>(0.5f * diffx);
+    //}
     update();
   }
   // right mouse translate code
@@ -38,11 +38,11 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     {
       m_mainCamera->translateCamera({ INCREMENT * diffX, INCREMENT * diffY });
     }
-    else
-    {
-      m_modelPos.m_x += INCREMENT * diffX;
-      m_modelPos.m_y -= INCREMENT * diffY;
-    }
+    //else
+    //{
+    //  m_modelPos.m_x += INCREMENT * diffX;
+    //  m_modelPos.m_y -= INCREMENT * diffY;
+    //}
     update();
   }
 }
@@ -87,15 +87,15 @@ void NGLScene::mouseReleaseEvent( QMouseEvent* _event )
 //----------------------------------------------------------------------------------------------------------------------
 void NGLScene::wheelEvent( QWheelEvent* _event )
 {
-
   // check the diff of the wheel position (0 means no change)
-  if ( _event->angleDelta().y() > 0 )
-  {
-    m_modelPos.m_z += ZOOM;
-  }
-  else if ( _event->angleDelta().y() < 0 )
-  {
-    m_modelPos.m_z -= ZOOM;
-  }
-  update();
+  //if ( _event->angleDelta().y() > 0 )
+  //{
+  //  m_modelPos.m_z += ZOOM;
+  //}
+  //else if ( _event->angleDelta().y() < 0 )
+  //{
+  //  m_modelPos.m_z -= ZOOM;
+  //}
+    m_mainCamera->translateCamereAlongEye(_event->angleDelta().y() * 0.01f);
+    update();
 }

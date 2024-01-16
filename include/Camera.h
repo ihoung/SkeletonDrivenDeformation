@@ -14,8 +14,10 @@ public:
   ngl::Mat4 getViewMat() const;
   ngl::Mat4 getProjectMat() const;
   void translateCamera(ngl::Vec2);
+  void translateCamereAlongEye(float);
   void rotCamera(ngl::Vec2);
   void setCamera(ngl::Vec3 _eye, ngl::Vec3 _center, ngl::Vec3 _up, float _fovy = 45.0f, float _aspect = 1.0f, float _zNear = 0.1f, float _zFar = 200.0f);
+  ngl::Vec3 getPosition() const;
 private:
   ngl::Vec3 m_eye;
   ngl::Vec3 m_center;
