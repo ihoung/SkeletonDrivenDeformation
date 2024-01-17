@@ -47,8 +47,8 @@ void NGLScene::initializeGL()
   ngl::ShaderLib::loadShader(MeshShader, "shaders/MeshVertex.glsl", "shaders/MeshFragment.glsl");
   startTimer(10);
 
-  m_strand = std::make_shared<HairStrand>(10, 5.0f);
-  m_simulator = std::make_unique<Simulator>(m_strand);
+  //m_strand = std::make_shared<HairStrand>(10, 5.0f);
+  //m_simulator = std::make_unique<Simulator>(m_strand);
 
   m_mesh = std::make_unique<Mesh>(DEFAULT_MESH_FILE);
 }
@@ -120,70 +120,70 @@ void NGLScene::resetCamera()
   update();
 }
 
-void NGLScene::changeHairPrecision(int _value)
-{
-  m_strand->changeParticleNum(_value);
-  update();
-}
-
-void NGLScene::changeHairLength(int _value)
-{
-  m_strand->changeLength((float)_value/50.0f);
-  update();
-}
-
-void NGLScene::changeHairDamping(int _value)
-{
-  m_strand->setDamping((float)_value / 10.0f);
-  update();
-}
-
-void NGLScene::changeTimeStep(double _timeStep)
-{
-  m_simulator->setTimeStep((float)_timeStep);
-  update();
-}
-
-void NGLScene::changeStimulationStatus(int _status)
-{
-  if(_status == 2)
-    m_isSimulationOn = true;
-  else
-    m_isSimulationOn = false;
-
-  if (!m_isSimulationOn)
-    m_strand->resetHairStrand();
-  update();
-}
-
-void NGLScene::changeWindDirX(double _dirX)
-{
-  m_windDirCache.m_x = (float)_dirX;
-}
-
-void NGLScene::changeWindDirY(double _dirY)
-{
-  m_windDirCache.m_y = (float)_dirY;
-}
-
-void NGLScene::changeWindDirZ(double _dirZ)
-{
-  m_windDirCache.m_z = (float)_dirZ;
-}
-
-void NGLScene::applyWindDirChanged()
-{
-  m_curWindDir = m_windDirCache;
-  m_simulator->clearForce();
-  m_simulator->addForce(Force(m_curWindDir, m_windForce));
-  update();
-}
-
-void NGLScene::changeWindForce(int _value)
-{
-  m_windForce = (float)_value;
-  m_simulator->clearForce();
-  m_simulator->addForce(Force(m_curWindDir, m_windForce));
-  update();
-}
+//void NGLScene::changeHairPrecision(int _value)
+//{
+//  m_strand->changeParticleNum(_value);
+//  update();
+//}
+//
+//void NGLScene::changeHairLength(int _value)
+//{
+//  m_strand->changeLength((float)_value/50.0f);
+//  update();
+//}
+//
+//void NGLScene::changeHairDamping(int _value)
+//{
+//  m_strand->setDamping((float)_value / 10.0f);
+//  update();
+//}
+//
+//void NGLScene::changeTimeStep(double _timeStep)
+//{
+//  m_simulator->setTimeStep((float)_timeStep);
+//  update();
+//}
+//
+//void NGLScene::changeStimulationStatus(int _status)
+//{
+//  if(_status == 2)
+//    m_isSimulationOn = true;
+//  else
+//    m_isSimulationOn = false;
+//
+//  if (!m_isSimulationOn)
+//    m_strand->resetHairStrand();
+//  update();
+//}
+//
+//void NGLScene::changeWindDirX(double _dirX)
+//{
+//  m_windDirCache.m_x = (float)_dirX;
+//}
+//
+//void NGLScene::changeWindDirY(double _dirY)
+//{
+//  m_windDirCache.m_y = (float)_dirY;
+//}
+//
+//void NGLScene::changeWindDirZ(double _dirZ)
+//{
+//  m_windDirCache.m_z = (float)_dirZ;
+//}
+//
+//void NGLScene::applyWindDirChanged()
+//{
+//  m_curWindDir = m_windDirCache;
+//  m_simulator->clearForce();
+//  m_simulator->addForce(Force(m_curWindDir, m_windForce));
+//  update();
+//}
+//
+//void NGLScene::changeWindForce(int _value)
+//{
+//  m_windForce = (float)_value;
+//  m_simulator->clearForce();
+//  m_simulator->addForce(Force(m_curWindDir, m_windForce));
+//  update();
+//}
 

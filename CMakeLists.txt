@@ -48,18 +48,11 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/src/NGLScene.cpp  
             ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
 			${PROJECT_SOURCE_DIR}/src/NGLSceneMouseControls.cpp 
-			${PROJECT_SOURCE_DIR}/src/HairStrand.cpp
 			${PROJECT_SOURCE_DIR}/src/Camera.cpp
-			${PROJECT_SOURCE_DIR}/src/Force.cpp
-			${PROJECT_SOURCE_DIR}/src/Simulator.cpp
 			${PROJECT_SOURCE_DIR}/src/Mesh.cpp
 			${PROJECT_SOURCE_DIR}/include/NGLScene.h
 			${PROJECT_SOURCE_DIR}/include/MainWindow.h
-			${PROJECT_SOURCE_DIR}/include/Particle.hpp
-			${PROJECT_SOURCE_DIR}/include/HairStrand.h 
 			${PROJECT_SOURCE_DIR}/include/Camera.h 
-			${PROJECT_SOURCE_DIR}/include/Force.h 			
-			${PROJECT_SOURCE_DIR}/include/Simulator.h
 			${PROJECT_SOURCE_DIR}/include/Mesh.h)
 
 if ( Qt6_FOUND )
@@ -88,18 +81,11 @@ include(GoogleTest)
 enable_testing()
 add_executable(SkeletonDrivenDeformationTests)
 target_sources(SkeletonDrivenDeformationTests PRIVATE ${PROJECT_SOURCE_DIR}/tests/mainTest.cpp
-											${PROJECT_SOURCE_DIR}/tests/HairTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/CameraTest.cpp
-											${PROJECT_SOURCE_DIR}/tests/ForceTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/MeshTest.cpp
 											${PROJECT_SOURCE_DIR}/src/Camera.cpp
-											${PROJECT_SOURCE_DIR}/src/HairStrand.cpp
-											${PROJECT_SOURCE_DIR}/src/Force.cpp
 											${PROJECT_SOURCE_DIR}/src/Mesh.cpp
-											${PROJECT_SOURCE_DIR}/include/Particle.hpp
-											${PROJECT_SOURCE_DIR}/include/HairStrand.h 
 											${PROJECT_SOURCE_DIR}/include/Camera.h
-											${PROJECT_SOURCE_DIR}/include/Force.h 			 
 											${PROJECT_SOURCE_DIR}/include/Mesh.h)
 target_link_libraries(SkeletonDrivenDeformationTests PRIVATE GTest::gtest GTest::gtest_main)
 gtest_discover_tests(SkeletonDrivenDeformationTests)

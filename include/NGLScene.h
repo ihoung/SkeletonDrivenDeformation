@@ -18,8 +18,8 @@
 /// put in this file
 //----------------------------------------------------------------------------------------------------------------------
 #include "Camera.h"
-#include "HairStrand.h"
-#include "Simulator.h"
+//#include "HairStrand.h"
+//#include "Simulator.h"
 #include "Mesh.h"
 
 class NGLScene : public QOpenGLWidget
@@ -51,16 +51,16 @@ class NGLScene : public QOpenGLWidget
 
 public slots:
     void resetCamera();
-    void changeHairPrecision(int);
-    void changeHairLength(int);
-    void changeHairDamping(int);
-    void changeTimeStep(double);
-    void changeStimulationStatus(int);
-    void changeWindDirX(double);
-    void changeWindDirY(double);
-    void changeWindDirZ(double);
-    void applyWindDirChanged();
-    void changeWindForce(int);
+    //void changeHairPrecision(int);
+    //void changeHairLength(int);
+    //void changeHairDamping(int);
+    //void changeTimeStep(double);
+    //void changeStimulationStatus(int);
+    //void changeWindDirX(double);
+    //void changeWindDirY(double);
+    //void changeWindDirZ(double);
+    //void applyWindDirChanged();
+    //void changeWindForce(int);
 
 private:
 
@@ -109,8 +109,8 @@ private:
     // main camera
     std::unique_ptr<Camera> m_mainCamera;
 
-    std::shared_ptr<HairStrand> m_strand;
-    std::unique_ptr<Simulator> m_simulator;
+    //std::shared_ptr<HairStrand> m_strand;
+    //std::unique_ptr<Simulator> m_simulator;
 
     std::unique_ptr<Mesh> m_mesh;
 
