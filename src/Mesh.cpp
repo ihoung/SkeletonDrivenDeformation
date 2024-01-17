@@ -48,8 +48,13 @@ void Mesh::drawSolid(const ngl::Mat4& _view, const ngl::Mat4& _project, const ch
 {
     ngl::ShaderLib::use(_shader);
 	loadMatricesToShader(_view, _project);
+
+    ngl::ShaderLib::setUniform("lightDirection", ngl::Vec3(1.0f, -1.0f, 1.0f));
+    ngl::ShaderLib::setUniform("lightColor", ngl::Vec3(1.0f));
+    ngl::ShaderLib::setUniform("baseColor", ngl::Vec3(1.0f));
+
 	glPointSize(3);
-    m_vaoMesh->setMode(GL_TRIANGLE_FAN);
+    m_vaoMesh->setMode(GL_TRIANGLES);
     m_vaoMesh->bind();
 	glEnable(GL_PROGRAM_POINT_SIZE);
     m_vaoMesh->draw();
@@ -61,8 +66,13 @@ void Mesh::drawWire(const ngl::Mat4& _view, const ngl::Mat4& _project, const cha
 {
     ngl::ShaderLib::use(_shader);
     loadMatricesToShader(_view, _project);
+
+    ngl::ShaderLib::setUniform("lightDirection", ngl::Vec3(1.0f, -1.0f, 1.0f));
+    ngl::ShaderLib::setUniform("lightColor", ngl::Vec3(0.0f));
+    ngl::ShaderLib::setUniform("baseColor", ngl::Vec3(0.0f));
+
     glPointSize(3);
-    m_vaoMesh->setMode(GL_TRIANGLE_STRIP);
+    m_vaoMesh->setMode(GL_LINE_STRIP);
     m_vaoMesh->bind();
     glEnable(GL_PROGRAM_POINT_SIZE);
     m_vaoMesh->draw();

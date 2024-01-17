@@ -92,6 +92,7 @@ target_sources(SkeletonDrivenDeformationTests PRIVATE ${PROJECT_SOURCE_DIR}/test
 											${PROJECT_SOURCE_DIR}/tests/CameraTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/ForceTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/MeshTest.cpp
+											${PROJECT_SOURCE_DIR}/src/Camera.cpp
 											${PROJECT_SOURCE_DIR}/src/HairStrand.cpp
 											${PROJECT_SOURCE_DIR}/src/Force.cpp
 											${PROJECT_SOURCE_DIR}/src/Mesh.cpp

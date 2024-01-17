@@ -17,7 +17,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
 
     if (m_win.camera_mode)
     {
-      m_mainCamera->rotCamera({ 0.1f * diffx, 0.1f * diffy });
+        m_mainCamera->rotAroundEye({ -0.1f * diffx, 0.1f * diffy });
     }
     //else
     //{
@@ -36,7 +36,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
 
     if (m_win.camera_mode)
     {
-      m_mainCamera->translateCamera({ INCREMENT * diffX, INCREMENT * diffY });
+      m_mainCamera->translateAlongViewPanel({ INCREMENT * diffX, INCREMENT * diffY });
     }
     //else
     //{
@@ -96,6 +96,6 @@ void NGLScene::wheelEvent( QWheelEvent* _event )
   //{
   //  m_modelPos.m_z -= ZOOM;
   //}
-    m_mainCamera->translateCamereAlongEye(_event->angleDelta().y() * 0.01f);
+    m_mainCamera->translateForwardBack(_event->angleDelta().y() * 0.01f);
     update();
 }

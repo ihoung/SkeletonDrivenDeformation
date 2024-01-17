@@ -4,6 +4,5 @@
 
 TEST(Mesh, MeshData)
 {
-	//std::unique_ptr<mesh> mesh;
-	//mesh->loadobj();
+	std::unique_ptr<Mesh> mesh;
 }

@@ -65,6 +65,7 @@ void NGLScene::paintGL()
 
   //m_strand->render(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat());
   m_mesh->drawSolid(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
+  m_mesh->drawWire(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
