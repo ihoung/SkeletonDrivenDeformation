@@ -29,6 +29,8 @@ void NGLScene::resizeGL(int _w , int _h)
 const std::string DEFAULT_MESH_FILE = "resources/cylinder.obj";
 
 const auto MeshShader ="MeshShader";
+//const auto WireShader = "WireShader";
+const auto SimpleShader = "SimpleShader";
 
 void NGLScene::initializeGL()
 {
@@ -45,12 +47,13 @@ void NGLScene::initializeGL()
   m_mainCamera = std::make_unique<Camera>(CAMERA_EYE, CAMERA_CENTER, CAMERA_UP);
 
   ngl::ShaderLib::loadShader(MeshShader, "shaders/MeshVertex.glsl", "shaders/MeshFragment.glsl");
+  //ngl::ShaderLib::loadShader(WireShader, "shaders/WireVertex.glsl", "shaders/WireFragment.glsl");
+  ngl::ShaderLib::loadShader(SimpleShader, "shaders/SimpleShaderVertex.glsl", "shaders/SimpleShaderFragment.glsl");
   startTimer(10);
 
-  //m_strand = std::make_shared<HairStrand>(10, 5.0f);
-  //m_simulator = std::make_unique<Simulator>(m_strand);
-
   m_mesh = std::make_unique<Mesh>(DEFAULT_MESH_FILE);
+  m_bone = std::make_unique<Bone>("root", nullptr);
+  m_bone->buildVAO(true);
 }
 
 
@@ -63,9 +66,13 @@ void NGLScene::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
-  //m_strand->render(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat());
   m_mesh->drawSolid(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
-  m_mesh->drawWire(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
+
+  //glClear(GL_DEPTH_BUFFER_BIT);
+  //m_mesh->drawWire(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), MeshShader);
+
+  glClear(GL_DEPTH_BUFFER_BIT);
+  m_mesh->drawSkeleton(m_mainCamera->getViewMat(), m_mainCamera->getProjectMat(), SimpleShader);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -50,10 +50,16 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/src/NGLSceneMouseControls.cpp 
 			${PROJECT_SOURCE_DIR}/src/Camera.cpp
 			${PROJECT_SOURCE_DIR}/src/Mesh.cpp
+			${PROJECT_SOURCE_DIR}/src/Skeleton/Bone.cpp
+			${PROJECT_SOURCE_DIR}/src/Skeleton/Skeleton.cpp
+			${PROJECT_SOURCE_DIR}/src/MathUtils.cpp
 			${PROJECT_SOURCE_DIR}/include/NGLScene.h
 			${PROJECT_SOURCE_DIR}/include/MainWindow.h
 			${PROJECT_SOURCE_DIR}/include/Camera.h 
-			${PROJECT_SOURCE_DIR}/include/Mesh.h)
+			${PROJECT_SOURCE_DIR}/include/Mesh.h 
+			${PROJECT_SOURCE_DIR}/include/Skeleton/Bone.h
+			${PROJECT_SOURCE_DIR}/include/Skeleton/Skeleton.h   
+			${PROJECT_SOURCE_DIR}/include/MathUtils.h)
 
 if ( Qt6_FOUND )
 	target_link_libraries(${TargetName} PRIVATE  NGL Qt::Widgets Qt::OpenGL Qt::OpenGLWidgets)
@@ -83,9 +89,17 @@ add_executable(SkeletonDrivenDeformationTests)
 target_sources(SkeletonDrivenDeformationTests PRIVATE ${PROJECT_SOURCE_DIR}/tests/mainTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/CameraTest.cpp
 											${PROJECT_SOURCE_DIR}/tests/MeshTest.cpp
+											${PROJECT_SOURCE_DIR}/tests/MathUtilsTest.cpp
 											${PROJECT_SOURCE_DIR}/src/Camera.cpp
 											${PROJECT_SOURCE_DIR}/src/Mesh.cpp
+											${PROJECT_SOURCE_DIR}/src/Skeleton/Bone.cpp
+											${PROJECT_SOURCE_DIR}/src/Skeleton/Skeleton.cpp
+											${PROJECT_SOURCE_DIR}/src/MathUtils.cpp
 											${PROJECT_SOURCE_DIR}/include/Camera.h
-											${PROJECT_SOURCE_DIR}/include/Mesh.h)
+											${PROJECT_SOURCE_DIR}/include/Mesh.h
+											${PROJECT_SOURCE_DIR}/include/Skeleton/Bone.h
+											${PROJECT_SOURCE_DIR}/include/Skeleton/Skeleton.h   
+											${PROJECT_SOURCE_DIR}/include/MathUtils.h
+)
 target_link_libraries(SkeletonDrivenDeformationTests PRIVATE GTest::gtest GTest::gtest_main)
 gtest_discover_tests(SkeletonDrivenDeformationTests)

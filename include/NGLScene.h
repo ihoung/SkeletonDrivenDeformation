@@ -113,6 +113,7 @@ private:
     //std::unique_ptr<Simulator> m_simulator;
 
     std::unique_ptr<Mesh> m_mesh;
+    std::unique_ptr<Bone> m_bone;
 
     bool m_isSimulationOn = false;
 
