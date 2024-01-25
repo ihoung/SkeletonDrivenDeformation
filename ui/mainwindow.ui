@@ -78,6 +78,25 @@
      </sizepolicy>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="2" rowspan="4">
+      <widget class="QTreeView" name="treeView_hierarchy">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
      <item row="4" column="0">
       <widget class="QGroupBox" name="groupBox">
        <property name="minimumSize">
@@ -145,6 +164,225 @@ Zoom in/out: Wheel</string>
        <property name="title">
         <string>Transform</string>
        </property>
+       <widget class="QDoubleSpinBox" name="dsb_tX">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>110</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>80</y>
+          <width>16</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>x</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>80</y>
+          <width>16</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>y</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>80</y>
+          <width>16</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>z</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_tZ">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>110</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_tY">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>110</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>110</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Translation</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rotation</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>210</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Scale</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_rX">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>160</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_rY">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>160</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_rZ">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>160</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_sX">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>210</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_sY">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>210</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="dsb_sZ">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>210</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_2">
+        <property name="geometry">
+         <rect>
+          <x>9</x>
+          <y>29</y>
+          <width>251</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <widget class="QRadioButton" name="rb_initT">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>10</y>
+           <width>81</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Initial</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">btnG_TMode</string>
+         </attribute>
+        </widget>
+        <widget class="QRadioButton" name="rb_curT">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>10</y>
+           <width>81</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Current</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">btnG_TMode</string>
+         </attribute>
+        </widget>
+       </widget>
       </widget>
      </item>
      <item row="0" column="2">
@@ -237,20 +475,13 @@ Zoom in/out: Wheel</string>
        </widget>
       </widget>
      </item>
-     <item row="1" column="2" rowspan="4">
-      <widget class="QTreeView" name="treeView_hierarchy">
-       <property name="maximumSize">
-        <size>
-         <width>200</width>
-         <height>16777215</height>
-        </size>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="btnG_TMode"/>
+ </buttongroups>
 </ui>

@@ -49,18 +49,14 @@ class NGLScene : public QOpenGLWidget
     //----------------------------------------------------------------------------------------------------------------------
     void resizeGL(int _w, int _h) override;
 
+    bool hasSkeletonRoot();
+    void setDisplayMode(Skeleton::DisplayMode _mode);
+    int createBone(int);
+    void removeBone(int);
+    Bone const* getBone(int);
+
 public slots:
     void resetCamera();
-    //void changeHairPrecision(int);
-    //void changeHairLength(int);
-    //void changeHairDamping(int);
-    //void changeTimeStep(double);
-    //void changeStimulationStatus(int);
-    //void changeWindDirX(double);
-    //void changeWindDirY(double);
-    //void changeWindDirZ(double);
-    //void applyWindDirChanged();
-    //void changeWindForce(int);
 
 private:
 
@@ -113,7 +109,6 @@ private:
     //std::unique_ptr<Simulator> m_simulator;
 
     std::unique_ptr<Mesh> m_mesh;
-    std::unique_ptr<Bone> m_bone;
 
     bool m_isSimulationOn = false;
 

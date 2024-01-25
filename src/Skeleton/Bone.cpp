@@ -3,13 +3,15 @@
 #include <ngl/Util.h>
 #include "MathUtils.h"
 
-Bone::Bone(std::string _name, Bone* _parent) :m_name(_name), m_parent(_parent), m_mode(DisplayMode::Init),
+Bone::Bone(std::string _name, Bone* _parent) :m_name(_name), m_parent(_parent),
+m_initTrans(ngl::Transformation{}), m_curTrans(ngl::Transformation{}),
 m_boneVAO(ngl::VAOFactory::createVAO(ngl::simpleIndexVAO, GL_LINES))
 {
 }
 
-Bone::Bone(std::string _name, Bone* _parent, ngl::Transformation _transform) :m_name(_name), m_mode(DisplayMode::Init),
-m_parent(_parent), m_originTrans(_transform), m_boneVAO(ngl::VAOFactory::createVAO(ngl::simpleIndexVAO, GL_LINES))
+Bone::Bone(std::string _name, Bone* _parent, ngl::Transformation _transform) :m_name(_name),
+m_parent(_parent), m_initTrans(_transform), m_curTrans(_transform), 
+m_boneVAO(ngl::VAOFactory::createVAO(ngl::simpleIndexVAO, GL_LINES))
 {
 }
 
@@ -20,34 +22,63 @@ void Bone::rename(std::string _name)
 
 void Bone::resetInitTransform(ngl::Transformation _transform)
 {
-	m_originTrans = _transform;
-
-	if (m_mode == DisplayMode::Init)
-	{
-		buildVAO(true);
-	}
+	m_initTrans = _transform;
 }
 
 void Bone::setCurrentTransform(ngl::Transformation _transform)
 {
 	m_curTrans = _transform;
-
-	if (m_mode == DisplayMode::Current)
-	{
-		buildVAO(false);
-	}
 }
 
-void Bone::setMode(DisplayMode _mode)
+std::string Bone::getName() const
 {
-	m_mode = _mode;
-	buildVAO(m_mode == DisplayMode::Init);
+	return m_name;
+}
+
+ngl::Transformation Bone::getInitTransform() const
+{
+	return m_initTrans;
+}
+
+ngl::Transformation Bone::getCurTransform() const
+{
+	return m_curTrans;
+}
+
+const std::vector<Bone*>& Bone::getChildBones() const
+{
+	return m_childBones;
+}
+
+Bone* Bone::getParent() const
+{
+	return m_parent;
+}
+
+//void Bone::setMode(DisplayMode _mode)
+//{
+//	m_mode = _mode;
+//	buildVAO(m_mode == DisplayMode::Init);
+//}
+
+void Bone::addChildBone(Bone* childBone)
+{
+	ngl::Transformation childT(m_initTrans);
+	childT.setPosition(m_initTrans.getPosition() + ngl::Vec3{ 0,1,0 });
+	childBone->m_initTrans = childT;
+	m_childBones.push_back(childBone);
+}
+
+void Bone::removeChildBone(Bone* childBone)
+{
+	auto pos = std::find(m_childBones.begin(), m_childBones.end(), childBone);
+	m_childBones.erase(pos);
 }
 
 // rendering
 void Bone::buildVAO(bool isInit)
 {
-	ngl::Vec3 startPos = isInit ? m_originTrans.getPosition() : m_curTrans.getPosition();
+	ngl::Vec3 startPos = isInit ? m_initTrans.getPosition() : m_curTrans.getPosition();
 	float radius = 0.05f;
 	// sphere
 	float offset = radius * sin(ngl::radians(45));
@@ -69,16 +100,17 @@ void Bone::buildVAO(bool isInit)
 
 	// pyramid
 	std::vector<ngl::Vec3> pyramidBase_vert{
-		{radius, radius, radius}, {-radius, radius, radius},
-		{-radius, radius, -radius}, {radius, radius, -radius},
+		{offset, offset, offset}, {-offset, offset, offset},
+		{-offset, offset, -offset}, {offset, offset, -offset},
 	};
 	std::vector<GLushort> pyramid_indices{ 0,1,1,2,2,3,3,0,0,3,1,2,0,4,1,4,2,4,3,4 };
 	for (int i=0; i<m_childBones.size(); ++i)
 	{
 		ngl::Vec3 endPos = isInit ? 
-			m_childBones[i]->m_originTrans.getPosition() : m_childBones[i]->m_curTrans.getPosition();
+			m_childBones[i]->m_initTrans.getPosition() : m_childBones[i]->m_curTrans.getPosition();
 		ngl::Vec3 direction = endPos - startPos;
 		float distance = direction.length();
+		if (distance == 0.0f) continue;
 		ngl::Quaternion q = MathUtils::QuaternionFromTwoVectors(ngl::Vec3({ 0,1,0 }), direction);
 		std::vector<ngl::Vec3> pyramid_vert;
 		for (auto vertex : pyramidBase_vert)

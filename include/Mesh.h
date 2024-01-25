@@ -16,6 +16,13 @@ public:
 	virtual bool load(const std::string& _fname, CalcBB _calcBB = CalcBB::True) noexcept override;
 	void updateMesh();
 
+	// skeleton
+	bool hasSkeletonRoot();
+	int createBone(int);
+	void deleteBone(int);
+	Bone const* getBone(int);
+	void setSkeletonMode(Skeleton::DisplayMode);
+
 	void drawSolid(const ngl::Mat4& _view, const ngl::Mat4& _project, const char* const _shader) const;
 	void drawWire(const ngl::Mat4& _view, const ngl::Mat4& _project, const char* const _shader) const;
 	void drawSkeleton(const ngl::Mat4& _view, const ngl::Mat4& _project, const char* const _shader) const;

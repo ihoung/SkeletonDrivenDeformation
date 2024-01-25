@@ -26,6 +26,21 @@ void NGLScene::resizeGL(int _w , int _h)
   m_win.height = static_cast<int>( _h * devicePixelRatio() );
 }
 
+int NGLScene::createBone(int parentId)
+{
+    return m_mesh->createBone(parentId);
+}
+
+void NGLScene::removeBone(int boneId)
+{
+    m_mesh->deleteBone(boneId);
+}
+
+Bone const* NGLScene::getBone(int boneId)
+{
+    return m_mesh->getBone(boneId);
+}
+
 const std::string DEFAULT_MESH_FILE = "resources/cylinder.obj";
 
 const auto MeshShader ="MeshShader";
@@ -52,8 +67,6 @@ void NGLScene::initializeGL()
   startTimer(10);
 
   m_mesh = std::make_unique<Mesh>(DEFAULT_MESH_FILE);
-  m_bone = std::make_unique<Bone>("root", nullptr);
-  m_bone->buildVAO(true);
 }
 
 
@@ -119,6 +132,16 @@ void NGLScene::keyReleaseEvent(QKeyEvent *_event)
 void NGLScene::timerEvent(QTimerEvent *_event)
 {
    update();
+}
+
+bool NGLScene::hasSkeletonRoot()
+{
+    return m_mesh->hasSkeletonRoot();
+}
+
+void NGLScene::setDisplayMode(Skeleton::DisplayMode _mode)
+{
+    m_mesh->setSkeletonMode(_mode);
 }
 
 void NGLScene::resetCamera()

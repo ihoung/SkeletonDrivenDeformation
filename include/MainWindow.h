@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <memory>
+#include <QStandardItemModel>
+#include <QAbstractButton>
+#include <QItemSelection>
 #include <QMainWindow>
 #include "NGLScene.h"
 
@@ -19,6 +23,17 @@ public:
 private:
   Ui::MainWindow *ui;
   NGLScene *m_gl;
+  std::unique_ptr<QStandardItemModel> m_hierarchyModel;
+
   void connectUI();
+  void initHierarchy();
+
+  void loadTransform(const ngl::Transformation);
+
+private slots:
+  void addBone();
+  void removeBone();
+  void setSkeletonMode(QAbstractButton* button, bool checked);
+  void treeViewSelectionChanged(const QItemSelection&, const QItemSelection&);
 };
 #endif // MAINWINDOW_H

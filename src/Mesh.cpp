@@ -73,6 +73,31 @@ void Mesh::loadMatricesToShader(const ngl::Mat4& _view, const ngl::Mat4& _projec
     //ngl::ShaderLib::setUniform("lightPosition", (m_mouseGlobalTX * m_lightPos).toVec3());
 }
 
+bool Mesh::hasSkeletonRoot()
+{
+    return m_skeleton->hasRoot();
+}
+
+int Mesh::createBone(int parentId)
+{
+    return m_skeleton->addBone(parentId);
+}
+
+void Mesh::deleteBone(int boneId)
+{
+    m_skeleton->removeBone(boneId);
+}
+
+Bone const* Mesh::getBone(int id)
+{
+    return m_skeleton->getBone(id);
+}
+
+void Mesh::setSkeletonMode(Skeleton::DisplayMode _mode)
+{
+    m_skeleton->setDisplayMode(_mode);
+}
+
 void Mesh::drawSolid(const ngl::Mat4& _view, const ngl::Mat4& _project, const char* const _shader) const
 {
     ngl::ShaderLib::use(_shader);
