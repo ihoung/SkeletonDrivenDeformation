@@ -20,7 +20,7 @@ public:
 	bool hasSkeletonRoot();
 	int createBone(int);
 	void deleteBone(int);
-	Bone const* getBone(int);
+	Bone* getBone(int);
 	void setSkeletonMode(Skeleton::DisplayMode);
 
 	void drawSolid(const ngl::Mat4& _view, const ngl::Mat4& _project, const char* const _shader) const;

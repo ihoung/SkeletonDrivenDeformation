@@ -36,7 +36,7 @@ void NGLScene::removeBone(int boneId)
     m_mesh->deleteBone(boneId);
 }
 
-Bone const* NGLScene::getBone(int boneId)
+Bone* NGLScene::getBone(int boneId)
 {
     return m_mesh->getBone(boneId);
 }

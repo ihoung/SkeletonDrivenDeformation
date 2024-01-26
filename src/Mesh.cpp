@@ -88,7 +88,7 @@ void Mesh::deleteBone(int boneId)
     m_skeleton->removeBone(boneId);
 }
 
-Bone const* Mesh::getBone(int id)
+Bone* Mesh::getBone(int id)
 {
     return m_skeleton->getBone(id);
 }
@@ -141,7 +141,5 @@ void Mesh::drawSkeleton(const ngl::Mat4& _view, const ngl::Mat4& _project, const
     ngl::ShaderLib::use(_shader);
 
     ngl::ShaderLib::setUniform("MVP", _project * _view);
-    ngl::ShaderLib::setUniform("baseColor", ngl::Vec3{ 0,1,0 });
-
     m_skeleton->draw();
 }

@@ -53,7 +53,7 @@ class NGLScene : public QOpenGLWidget
     void setDisplayMode(Skeleton::DisplayMode _mode);
     int createBone(int);
     void removeBone(int);
-    Bone const* getBone(int);
+    Bone* getBone(int);
 
 public slots:
     void resetCamera();

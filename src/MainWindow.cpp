@@ -132,17 +132,34 @@ void MainWindow::setSkeletonMode(QAbstractButton* button, bool checked)
 
 void MainWindow::treeViewSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
 {
-	QModelIndex selIndex = selected.indexes()[0];
-	QStandardItem* selItem = m_hierarchyModel->itemFromIndex(selIndex);
-	int selId = selItem->data().toInt();
-	Bone const* selBone = m_gl->getBone(selId);
-	if (ui->rb_initT->isChecked())
+	if (deselected.size() > 0)
 	{
-		loadTransform(selBone->getInitTransform());
+		QModelIndex deselIndex = deselected.indexes()[0];
+		QStandardItem* deselItem = m_hierarchyModel->itemFromIndex(deselIndex);
+		int deselId = deselItem->data().toInt();
+		Bone* deselBone = m_gl->getBone(deselId);
+		if (deselBone)
+		{
+			deselBone->setSelection(false);
+		}
 	}
-	else if (ui->rb_curT->isChecked())
+
+	if (selected.size() > 0)
 	{
-		loadTransform(selBone->getCurTransform());
+		QModelIndex selIndex = selected.indexes()[0];
+		QStandardItem* selItem = m_hierarchyModel->itemFromIndex(selIndex);
+		int selId = selItem->data().toInt();
+		Bone* selBone = m_gl->getBone(selId);
+		selBone->setSelection(true);
+		if (ui->rb_initT->isChecked())
+		{
+			loadTransform(selBone->getInitTransform());
+		}
+		else if (ui->rb_curT->isChecked())
+		{
+			loadTransform(selBone->getCurTransform());
+		}
 	}
+
 }
 

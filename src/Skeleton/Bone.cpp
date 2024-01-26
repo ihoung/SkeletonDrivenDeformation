@@ -1,18 +1,21 @@
 #include "Skeleton/Bone.h"
 #include <ngl/VAOFactory.h>
 #include <ngl/Util.h>
+#include <ngl/ShaderLib.h>
 #include "MathUtils.h"
 
-Bone::Bone(std::string _name, Bone* _parent) :m_name(_name), m_parent(_parent),
+Bone::Bone(int _id, std::string _name, Bone* _parent) :m_id(_id), m_name(_name), m_parent(_parent),m_select(Selection::Selected),
 m_initTrans(ngl::Transformation{}), m_curTrans(ngl::Transformation{}),
 m_boneVAO(ngl::VAOFactory::createVAO(ngl::simpleIndexVAO, GL_LINES))
 {
+	//buildVAO(true);
 }
 
-Bone::Bone(std::string _name, Bone* _parent, ngl::Transformation _transform) :m_name(_name),
-m_parent(_parent), m_initTrans(_transform), m_curTrans(_transform), 
+Bone::Bone(int _id, std::string _name, Bone* _parent, ngl::Transformation _transform) :m_id(_id), m_name(_name),
+m_select(Selection::Selected), m_parent(_parent), m_initTrans(_transform), m_curTrans(_transform), 
 m_boneVAO(ngl::VAOFactory::createVAO(ngl::simpleIndexVAO, GL_LINES))
 {
+	//buildVAO(true);
 }
 
 void Bone::rename(std::string _name)
@@ -23,11 +26,18 @@ void Bone::rename(std::string _name)
 void Bone::resetInitTransform(ngl::Transformation _transform)
 {
 	m_initTrans = _transform;
+	//buildVAO(true);
 }
 
 void Bone::setCurrentTransform(ngl::Transformation _transform)
 {
 	m_curTrans = _transform;
+	//buildVAO(false);
+}
+
+int Bone::getID() const
+{
+	return m_id;
 }
 
 std::string Bone::getName() const
@@ -55,17 +65,12 @@ Bone* Bone::getParent() const
 	return m_parent;
 }
 
-//void Bone::setMode(DisplayMode _mode)
-//{
-//	m_mode = _mode;
-//	buildVAO(m_mode == DisplayMode::Init);
-//}
-
 void Bone::addChildBone(Bone* childBone)
 {
 	ngl::Transformation childT(m_initTrans);
 	childT.setPosition(m_initTrans.getPosition() + ngl::Vec3{ 0,1,0 });
 	childBone->m_initTrans = childT;
+	childBone->m_curTrans = childT;
 	m_childBones.push_back(childBone);
 }
 
@@ -73,6 +78,16 @@ void Bone::removeChildBone(Bone* childBone)
 {
 	auto pos = std::find(m_childBones.begin(), m_childBones.end(), childBone);
 	m_childBones.erase(pos);
+}
+
+void Bone::setSelection(bool isSelected)
+{
+	m_select = isSelected ? Selection::Selected : Selection::Unselected;
+}
+
+bool Bone::isSelected() const
+{
+	return m_select == Selection::Selected ? true : false;
 }
 
 // rendering
@@ -138,6 +153,15 @@ void Bone::buildVAO(bool isInit)
 
 void Bone::draw()
 {
+	if (m_select == Selection::Selected)
+	{
+		ngl::ShaderLib::setUniform("baseColor", ngl::Vec3{ 0,1,0 });
+	}
+	else
+	{
+		ngl::ShaderLib::setUniform("baseColor", ngl::Vec3{ 204,102,0 });
+	}
+
 	glPointSize(3);
 	m_boneVAO->bind();
 	glEnable(GL_PROGRAM_POINT_SIZE);
