@@ -32,32 +32,32 @@ add_compile_definitions(GLM_ENABLE_EXPERIMENTAL)
 #endif()
 
 # see what platform we are on and set platform defines
-#if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-#	find_library(MACGL OpenGL)
-#	include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/include)
-#	set(EXTRALIBS  ${MACGL})
-#
-#  add_definitions(-DGL_SILENCE_DEPRECATION)
-#	add_definitions(-DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED)
-#	set ( PROJECT_LINK_LIBS ${MACGL} NGL)
-#elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-#	include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/include)
-#	set ( PROJECT_LINK_LIBS -lGL NGL)
-#	set(EXTRALIBS OpenMP::OpenMP_CXX)
-#elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-# 	include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/include)
-#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)	
-#	link_libraries(${CMAKE_CURRENT_SOURCE_DIR}/lib/NGL.lib)
-#	add_compile_definitions(_USE_MATH_DEFINES)
-#	add_compile_definitions(NOMINMAX)
-#	add_compile_options(/W3 -wd4068 ) # /W4 is too noisy
-#	# Need to define this when building shared library or suffer dllimport errors
-#	add_compile_definitions(BUILDING_DLL)
-#	set(EXTRALIBS OpenMP::OpenMP_CXX)
-#endif()
-#
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	find_library(MACGL OpenGL)
+	include_directories(include ${CMAKE_CURRENT_LIST_DIR}/include)
+	set(EXTRALIBS  ${MACGL})
+
+ add_definitions(-DGL_SILENCE_DEPRECATION)
+	add_definitions(-DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED)
+	set ( PROJECT_LINK_LIBS ${MACGL} NGL)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	include_directories(include ${CMAKE_CURRENT_LIST_DIR}/include)
+	set ( PROJECT_LINK_LIBS -lGL NGL)
+	set(EXTRALIBS OpenMP::OpenMP_CXX)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+	include_directories(include ${CMAKE_CURRENT_LIST_DIR}/include)
+	link_directories(${CMAKE_CURRENT_LIST_DIR})	
+	link_libraries(${CMAKE_CURRENT_LIST_DIR}/NGL.lib)
+	add_compile_definitions(_USE_MATH_DEFINES)
+	add_compile_definitions(NOMINMAX)
+	add_compile_options(/W3 -wd4068 ) # /W4 is too noisy
+	# Need to define this when building shared library or suffer dllimport errors
+	add_compile_definitions(BUILDING_DLL)
+	set(EXTRALIBS OpenMP::OpenMP_CXX)
+endif()
+
 ## now add NGL specific values
-#link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # add exe and link libs that must be after the other defines
 if ( OpenImageIO_FOUND AND  NOT NO_OIIO)

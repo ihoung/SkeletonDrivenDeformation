@@ -18,7 +18,8 @@ project(SkeletonDrivenDeformationBuild)
 set(TargetName SkeletonDrivenDeformation)
 # This will include the file NGLConfig.cmake, you need to add the location to this either using
 # -DCMAKE_PREFIX_PATH=~/NGL or as a system environment variable. 
-find_package(NGL CONFIG REQUIRED)
+#find_package(NGL CONFIG REQUIRED)
+include(${PROJECT_SOURCE_DIR}/lib/NGLConfig.cmake)
 # Instruct CMake to run moc automatically when needed (Qt projects only)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -42,8 +43,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # Set the name of the executable we want to build
 add_executable(${TargetName})
 
-# Add NGL include path
-include_directories(include $ENV{HOME}/NGL/include)
+include_directories(include ${PROJECT_SOURCE_DIR}/lib/include)
 target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp  
 			${PROJECT_SOURCE_DIR}/src/NGLScene.cpp  
             ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
@@ -62,9 +62,9 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/include/MathUtils.h)
 
 if ( Qt6_FOUND )
-	target_link_libraries(${TargetName} PRIVATE  NGL Qt::Widgets Qt::OpenGL Qt::OpenGLWidgets)
+	target_link_libraries(${TargetName} PRIVATE  Qt::Widgets Qt::OpenGL Qt::OpenGLWidgets)
 else()
-	target_link_libraries(${TargetName} PRIVATE  NGL Qt::Widgets Qt::OpenGL )
+	target_link_libraries(${TargetName} PRIVATE  Qt::Widgets Qt::OpenGL )
 endif()
 
 add_custom_target(${TargetName}CopyShaders ALL
